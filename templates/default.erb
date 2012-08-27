@@ -17,4 +17,12 @@
 #
 # Missing examples for memcache persitent queue store...
 
-PARAMS="<%= scope.lookupvar('gearman::params::job_retries') -%> <%= scope.lookupvar('gearman::params::port') -%> <%= scope.lookupvar('gearman::params::listen') -%> <%= scope.lookupvar('gearman::params::threads') -%> <%= scope.lookupvar('gearman::params::maxfiles') -%> <%= scope.lookupvar('gearman::params::worker_wakeup') -%>"
+PARAMS="--job-retries=<%= scope.lookupvar('gearman::job_retries') %> \
+        --port=<%= scope.lookupvar('gearman::port') %> \
+        --listen=<%= scope.lookupvar('gearman::listen') %> \
+        --threads=<%= scope.lookupvar('gearman::threads') %> \
+<% if scope.lookupvar('gearman::queue_type') != '' -%>
+        -q <%= scope.lookupvar('gearman::queue_type') %> \
+        <%= scope.lookupvar('gearman::queue_params') %>  \
+<% end -%>
+        --file-descriptors=<%= scope.lookupvar('gearman::maxfiles') %>"

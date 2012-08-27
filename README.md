@@ -1,25 +1,36 @@
 # puppet-gearman
 
 Manage gearman configuration via Puppet
+Was forked from https://github.com/saz/puppet-gearman
 
 ## Usage
 
-```
-    include gearman
-```
-
-### Higher file descriptor limit
-
-**Requires saz-limits module from forge.puppetlabs.com**
+* Not persistant queues:
 
 ```
-    $gearman_maxfiles = 16384
-    include gearman
+include gearman
 ```
 
-### Other values
+* Persistant queues (e.g.):
 
-* $gearman_job_retries: default 0
-* $gearman_port: default 4730
-* $gearman_listen: default 0.0.0.0
-* $gearman_threads: default 4
+```
+class {
+  'gearman':
+    queue_type    => 'libdrizzle',
+    queue_params  => '--libdrizzle-host=127.0.0.1 --libdrizzle-port=3306 --libdrizzle-user=root --libdrizzle-password="" --libdrizzle-db=gearman --libdrizzle-table=queue --libdrizzle-mysql',
+}
+```
+
+## Default parameters.
+
+See params.pp
+
+* package_name = ['gearman-job-server','gearman-tools']
+* config_file   = '/etc/default/gearman-job-server'
+* service_name  = 'gearman-job-server'
+* job_retries   = 0
+* port          = 4730
+* listen        = '0.0.0.0'
+* maxfiles      = 1024
+* threads       = 4
+* worker_wakeup = 0
