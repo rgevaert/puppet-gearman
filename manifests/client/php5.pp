@@ -6,8 +6,8 @@ class gearman::client::php5 ( $firewall_id = 'gearman_client')
   }
 
   @@file { "/etc/gearman.d/$::fqdn":
-    content => "$f::qdn\n",
-    tag     => $gearman::firewall_id,
+    content => "${::fqdn}\n",
+    tag     => "gearman_${firewall_id}",
     notify  => Exec['update_gearman_firewall'];
   }
 }

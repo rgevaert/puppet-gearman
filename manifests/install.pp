@@ -13,7 +13,7 @@ class gearman::install {
 
   if($gearman::firewall)
   {
-    File <<| tag == $gearman::firewall_id |>>
+    File <<| tag == "gearman_${gearman::firewall_id}" |>>
   }
 
   file {
