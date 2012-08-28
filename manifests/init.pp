@@ -10,6 +10,8 @@ class gearman (
     $service_name  = $gearman::params::service_name,
     $queue_type    = '',
     $queue_params  = '',
+    $firewall      = false,
+    $firewall_id   = 'gearman_client'
   ) inherits gearman::params {
 
   class {'gearman::install':;}

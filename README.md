@@ -21,6 +21,10 @@ class {
 }
 ```
 
+* Firewall
+
+There is a easy (and silly) firewall implementation with stored configs.
+
 ## Default parameters.
 
 See params.pp
@@ -34,3 +38,5 @@ See params.pp
 * maxfiles      = 1024
 * threads       = 4
 * worker_wakeup = 0
+* firewall      = false
+* firewall_id   = 'gearman_client'

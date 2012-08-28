@@ -1,0 +1,13 @@
+#!/bin/sh
+iptables -F INPUT
+
+GEARMAN_PORT=<%= scope.lookupvar('gearman::port') %> 
+
+for host in `cat /etc/gearman.d/*`
+do 
+	iptables -I INPUT -p tcp -s $host --dport $GEARMAN_PORT -j ACCEPT
+done
+iptables -I INPUT -p tcp -s 127.0.0.1 --dport $GEARMAN_PORT -j ACCEPT
+iptables -I INPUT -p tcp -s 157.193.44.0/255.255.255.0 --dport $GEARMAN_PORT -j ACCEPT
+iptables -I INPUT -p tcp -s 157.193.43.0/255.255.255.0 --dport $GEARMAN_PORT -j ACCEPT
+iptables -A INPUT -p tcp --dport $GEARMAN_PORT -j DROP
